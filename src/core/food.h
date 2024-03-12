@@ -19,9 +19,6 @@
 
 #pragma once
 
-#include <iostream>
-#include <random>
-
 #include <SFML/Graphics.hpp>
 
 namespace Snake
