@@ -17,10 +17,7 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SS_HEADER_SNAKE_H_
-#define SS_HEADER_SNAKE_H_
-
-
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <list>
@@ -28,17 +25,13 @@
 
 #include "food.h"
 
-
 #define SNAKE_MAX_LENGTH 2000
 
-namespace game {
-
-	class Random {
-		/* A utility class that will be used to generate random numbers */
-		std::random_device rd;
-		std::mt19937 gen;
+namespace game 
+{
+	class Random 
+	{
 	public:
-
 		Random() {
 			gen.seed(rd());
 		}
@@ -48,21 +41,19 @@ namespace game {
 			return dist(gen);
 		}
 
+	private:
+		std::random_device rd;
+		std::mt19937 gen;
 	};
 
-
-	class Snake {
-		/*
-		This class represents the snake.
-		It is represented as a Vector of sf::RectangleShape objects.
-		*/
+	class Snake 
+	{
 	public:
 		Snake(sf::RenderWindow *);
 		void drawSnake();
 		bool died();
 		bool ateFood(Food *fd);
 		void moveSnake(sf::Vector2<int> direction);
-
 		sf::Vector2f getNextFoodLocation();
 		
 	private:
@@ -85,7 +76,4 @@ namespace game {
 		sf::Color colorBody;
 		sf::Color colorHead;
 	};
-
 }
-
-#endif // !SS_HEADER_SNAKE_H_

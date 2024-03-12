@@ -17,19 +17,20 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SS_GAME_H
-#define SS_GAME_H
+#pragma once
+
+#include <random>
+#include <list>
+
+#include <SFML/Graphics.hpp>
 
 #include "snake.h"
 #include "food.h"
 
-#include <SFML/Graphics.hpp>
-#include <random>
-#include <list>
-
 #define BOX_SIZE 20 
 
-namespace game {
+namespace game 
+{
 	/*
 	GameController is the central interface of the game.
 	This class will monitor the working of game:
@@ -61,7 +62,8 @@ namespace game {
 	/*==================================================*
 	*			The main game controller				*
 	*===================================================*/
-	class GameController {
+	class GameController 
+	{
 	public:
 		/* Constructors */
 		GameController(sf::RenderWindow *w);
@@ -88,9 +90,5 @@ namespace game {
 		/* Resources that the controller retrieves from Disk */
 		sf::Font fontList[3];
 
-	}; // class game
-	
-	
+	};
 }
-
-#endif // !SS_GAME_H

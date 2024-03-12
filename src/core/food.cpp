@@ -19,23 +19,23 @@
 
 #include "food.h"
 
-game::Food::Food(sf::RenderWindow *w, sf::Vector2f loc)
+namespace game
 {
-	location = loc;
-	screen = w;
-	color = sf::Color::Red;
-	food = getRectangleAt( location, color);
-	
-}
+	Food::Food(sf::RenderWindow* w, sf::Vector2f loc)
+	{
+		location = loc;
+		screen = w;
+		color = sf::Color::Red;
+		food = getRectangleAt(location, color);
+	}
 
-sf::RectangleShape game::Food::getFood()
-{
-	return food;
-}
+	sf::RectangleShape Food::getFood()
+	{
+		return food;
+	}
 
-
-
-void game::Food::drawFood()
-{
-	screen->draw( food );
+	void Food::drawFood()
+	{
+		screen->draw(food);
+	}
 }

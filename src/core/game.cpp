@@ -21,11 +21,10 @@
    
 #include <random>
 #include <iostream>
-namespace game{
-
-
-	// constructor
-	GameController::GameController(sf::RenderWindow * w) : snake(w)
+namespace game
+{
+	GameController::GameController(sf::RenderWindow * w) 
+		: snake(w)
 	{
 		screen = w;
 		score = 0;
@@ -34,7 +33,6 @@ namespace game{
 	void GameController::start()
 	{
 		loadResources();
-		// TODO 
 		gameLoop();
 	}
    
@@ -44,46 +42,62 @@ namespace game{
 		sf::Vector2<int> direction(-1,0);
 		scale = 5;
 		Food *food = new Food(screen,snake.getNextFoodLocation());
-		while (loopInvarient) {
+		while (loopInvarient) 
+		{
 			setupScene();
 			food->drawFood();
 			sf::Event event;
-			while (screen->pollEvent(event)) {
-				if (event.type == sf::Event::KeyReleased) {
-					if (event.key.code == sf::Keyboard::Up) {
+			while (screen->pollEvent(event)) 
+			{
+				if (event.type == sf::Event::KeyReleased) 
+				{
+					if (event.key.code == sf::Keyboard::Up) 
+					{
 						direction.y = -1;
 						direction.x = 0;
-					} else if (event.key.code == sf::Keyboard::Down) {
+					} 
+					else if (event.key.code == sf::Keyboard::Down) 
+					{
 						direction.y = 1;
 						direction.x = 0;
 					}
-					else if (event.key.code == sf::Keyboard::Left) {
+					else if (event.key.code == sf::Keyboard::Left) 
+					{
 						direction.x = -1;
 						direction.y = 0;
 					}
-					else if (event.key.code == sf::Keyboard::Right) {
+					else if (event.key.code == sf::Keyboard::Right) 
+					{
 						direction.x = 1;
 						direction.y = 0;
 					}
 				}
-				if (event.type == sf::Event::Closed) {
+
+				if (event.type == sf::Event::Closed) 
+				{
 					exit(0);
 				}
-			} //event loop
+			}
+
 			snake.moveSnake(direction);
-			if (snake.died()) {
+
+			if (snake.died()) 
+			{
 				//game over
 				loopInvarient = false;
 			}
-			if (snake.ateFood(food)) {
+
+			if (snake.ateFood(food)) 
+			{
 				score++;
 				delete food;
 				food = new Food(screen, snake.getNextFoodLocation());
 			}
+
 			screen->display();
 			screen->setFramerateLimit(60);
 		}
-	} //gameLoop()
+	}
 
 	void GameController::setupScene()
 	{
@@ -91,13 +105,13 @@ namespace game{
 		snake.drawSnake();
 	}
 
-	bool checkCollision(const sf::RectangleShape& a, const sf::RectangleShape& b) {
-		return a.getGlobalBounds().intersects( b.getGlobalBounds() );
-		
+	bool checkCollision(const sf::RectangleShape& a, const sf::RectangleShape& b) 
+	{
+		return a.getGlobalBounds().intersects(b.getGlobalBounds());
 	}
 
-	
-	sf::RectangleShape getRectangleAt( sf::Vector2f location, sf::Color color )
+	// From engine.h...
+	sf::RectangleShape getRectangleAt(sf::Vector2f location, sf::Color color)
 	{
 		sf::RectangleShape box;
 		box.setSize(sf::Vector2f(BOX_SIZE,BOX_SIZE));
@@ -106,14 +120,14 @@ namespace game{
 		return box;
 
 	}
+
 	void GameController::loadResources()
 	{
-		//TODO
-		
+		//TODO: Implement
 	}
+
 	sf::Font * GameController::getFont(Fonts font)
 	{
 		return &fontList[font];
 	}
-
 }

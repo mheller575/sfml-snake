@@ -17,27 +17,14 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
-
-#ifndef SS_HEADER_ENGINE_H_
-#define SS_HEADER_ENGINE_H_
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
-namespace game {
-	/*
-	Contains functions that will be used to perform certain
-	actions that will be needed that will be needed by game
-
-	*/
-
+namespace game 
+{
 	bool checkCollision(const sf::RectangleShape&, const sf::RectangleShape& );
 
 	/* Returns a rectangle at the specified coordinates */
 	sf::RectangleShape getRectangleAt(sf::Vector2f location, sf::Color);
-
 }
-
-
-#endif // !SS_HEADER_ENGINE_H_

@@ -17,33 +17,28 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#pragma once
 
-#ifndef SS_HEADER_FOOD_H_
-#define SS_HEADER_FOOD_H_
+#include <iostream>
+#include <random>
+
+#include <SFML/Graphics.hpp>
 
 #include "engine.h"
 
-#include <SFML/Graphics.hpp>
-#include <random>
-#include <iostream>
-namespace game {
-	/*
-	Food: represents the Food object snake eats.
-	It is represented by a sf::RectangleShape
-	*/
-	
-	class Food {
+namespace game 
+{
+	class Food 
+	{
 	public:
 		Food(sf::RenderWindow *, sf::Vector2f loc);
 		sf::RectangleShape getFood();
 		void drawFood();
+
 	private:
 		sf::Color color;
 		sf::Vector2f location;
 		sf::RectangleShape food;
 		sf::RenderWindow *screen;
 	};
-
 }
-
-#endif // !SS_HEADER_FOOD_H_
