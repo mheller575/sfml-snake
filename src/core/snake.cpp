@@ -18,6 +18,7 @@
 */
 
 #include "Food.h"
+#include "RandomNumberGenerator.h"
 #include "Utilities.h"
 #include "snake.h"
 #include "game.h"
@@ -32,8 +33,8 @@ namespace Snake
 		screen = w;
 
 		snake_length = 1;
-		int x = rand.getRandomInt(screen->getSize().x / 4, screen->getSize().x * 3 / 4);
-		int y = rand.getRandomInt(screen->getSize().y / 4, screen->getSize().y * 3 / 4);
+		int x = GetRandomNumber(screen->getSize().x / 4, screen->getSize().x * 3 / 4);
+		int y = GetRandomNumber(screen->getSize().y / 4, screen->getSize().y * 3 / 4);
 		{
 			body.push_back(BuildRectangleShape(sf::Vector2f(x, y), colorHead));
 			snake_direction_list.push_front(sf::Vector2<int>(-1, 0));
@@ -110,8 +111,8 @@ namespace Snake
 		while (okay) 
 		{
 			/* This loop exists to make sure the new food does not spawn inside the snake */
-			int x = rand.getRandomInt(0, screen->getSize().x - 4 * BoxSize);
-			int y = rand.getRandomInt(0, screen->getSize().y - 4 * BoxSize);
+			int x = GetRandomNumber(0, screen->getSize().x - 4 * BoxSize);
+			int y = GetRandomNumber(0, screen->getSize().y - 4 * BoxSize);
 
 			sf::Vector2f food_loc(x, y);
 

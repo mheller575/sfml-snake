@@ -19,43 +19,7 @@
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <list>
-#include <random>
-
-#define SNAKE_MAX_LENGTH 2000
-
 namespace Snake
 {
-	class Food;
-
-	class Snake 
-	{
-	public:
-		Snake(sf::RenderWindow *);
-		void drawSnake();
-		bool died();
-		bool ateFood(Food *fd);
-		void moveSnake(sf::Vector2<int> direction);
-		sf::Vector2f getNextFoodLocation();
-		
-	private:
-		sf::RenderWindow *screen;
-
-		/* Used to determine whether or not to increment length of snake */
-		bool updateLegth;
-
-		/* The rate of movement of snake */
-		float movementScale;
-
-		/* Snake parameters */
-		int snake_length;
-		std::list<sf::Vector2<int> > snake_direction_list;
-		sf::Vector2<int> lastDirection;
-		std::vector<sf::RectangleShape> body;
-
-		/* Load from options */
-		sf::Color colorBody;
-		sf::Color colorHead;
-	};
+	int GetRandomNumber(const int& min, const int& max);
 }

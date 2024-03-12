@@ -17,45 +17,25 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
-#include <SFML/Graphics.hpp>
-#include <list>
 #include <random>
 
-#define SNAKE_MAX_LENGTH 2000
+#include "RandomNumberGenerator.h"
 
 namespace Snake
 {
-	class Food;
-
-	class Snake 
+	int GetRandomNumber(const int& min, const int& max)
 	{
-	public:
-		Snake(sf::RenderWindow *);
-		void drawSnake();
-		bool died();
-		bool ateFood(Food *fd);
-		void moveSnake(sf::Vector2<int> direction);
-		sf::Vector2f getNextFoodLocation();
-		
-	private:
-		sf::RenderWindow *screen;
+		// TODO: Maybe this should be stack allocated? Have a static bool track if we were seeded already? Optional?
+		static std::shared_ptr<std::mt19937> generator;
 
-		/* Used to determine whether or not to increment length of snake */
-		bool updateLegth;
+		if (generator == nullptr)
+		{
+			generator = std::make_shared<std::mt19937>();
+			std::random_device rd;
+			generator->seed(rd());
+		}
 
-		/* The rate of movement of snake */
-		float movementScale;
-
-		/* Snake parameters */
-		int snake_length;
-		std::list<sf::Vector2<int> > snake_direction_list;
-		sf::Vector2<int> lastDirection;
-		std::vector<sf::RectangleShape> body;
-
-		/* Load from options */
-		sf::Color colorBody;
-		sf::Color colorHead;
-	};
+		std::uniform_int_distribution<int> dist(min, max);
+		return dist(*generator);
+	}
 }
