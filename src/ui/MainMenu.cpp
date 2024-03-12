@@ -27,10 +27,10 @@ namespace Snake
 		: _window(w)
 		, _main_menu_context(nullptr, menu_destroy_context)
 	{
-		setup_menu_context();
+		SetupMenuContext();
 	}
 
-	void MainMenu::start()
+	void MainMenu::Start()
 	{
 		_window.setFramerateLimit(60);
 		while (_window.isOpen())
@@ -54,7 +54,7 @@ namespace Snake
 		}
 	}
 
-	void MainMenu::setup_menu_context()
+	void MainMenu::SetupMenuContext()
 	{
 		_font.loadFromFile("sansation.ttf");
 
@@ -92,7 +92,7 @@ namespace Snake
 				[&](sf::RenderTarget& target) 
 				{
 					GameController gameController(&_window);
-					gameController.start();
+					gameController.Start();
 				}
 			},
 			{

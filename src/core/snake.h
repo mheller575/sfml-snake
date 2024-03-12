@@ -21,23 +21,22 @@
 
 #include <SFML/Graphics.hpp>
 #include <list>
-#include <random>
-
-#define SNAKE_MAX_LENGTH 2000
 
 namespace Snake
 {
 	class Food;
 
+	constexpr auto SNAKE_MAX_LENGTH = 2000;
+
 	class Snake 
 	{
 	public:
 		Snake(sf::RenderWindow *);
-		void drawSnake();
-		bool died();
-		bool ateFood(Food *fd);
-		void moveSnake(sf::Vector2<int> direction);
-		sf::Vector2f getNextFoodLocation();
+		void Draw();
+		bool Died();
+		bool AteFood(Food *fd);
+		void ChangeDirection(sf::Vector2<int> direction);
+		sf::Vector2f GetNextFoodLocation();
 		
 	private:
 		sf::RenderWindow *screen;
@@ -50,7 +49,7 @@ namespace Snake
 
 		/* Snake parameters */
 		int snake_length;
-		std::list<sf::Vector2<int> > snake_direction_list;
+		std::list<sf::Vector2<int>> snake_direction_list;
 		sf::Vector2<int> lastDirection;
 		std::vector<sf::RectangleShape> body;
 

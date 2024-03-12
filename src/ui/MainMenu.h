@@ -29,10 +29,10 @@ namespace Snake
 	{
 	public:
 		MainMenu(sf::RenderWindow &w);
-		void start();
+		void Start();
 
 	private:
-		void setup_menu_context();
+		void SetupMenuContext();
 
 		sf::RenderWindow &_window;
 		sf::Font _font;

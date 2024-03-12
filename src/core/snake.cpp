@@ -26,35 +26,30 @@
 namespace Snake
 {
 	Snake::Snake(sf::RenderWindow* w)
+		: colorBody(sf::Color::Green)
+		, colorHead(sf::Color::Yellow)
+		, movementScale(5)
+		, screen(w)
+		, snake_length(1)
+		, updateLegth(false)
 	{
-		colorBody = sf::Color::Green;
-		colorHead = sf::Color::Yellow;
-		movementScale = 5;
-		screen = w;
-
-		snake_length = 1;
-		int x = GetRandomNumber(screen->getSize().x / 4, screen->getSize().x * 3 / 4);
-		int y = GetRandomNumber(screen->getSize().y / 4, screen->getSize().y * 3 / 4);
-		{
-			body.push_back(BuildRectangleShape(sf::Vector2f(x, y), colorHead));
-			snake_direction_list.push_front(sf::Vector2<int>(-1, 0));
-		}
-
-		updateLegth = false;
+		const auto x = GetRandomNumber(screen->getSize().x / 4, screen->getSize().x * 3 / 4);
+		const auto y = GetRandomNumber(screen->getSize().y / 4, screen->getSize().y * 3 / 4);
+		body.push_back(BuildRectangleShape(sf::Vector2f(x, y), colorHead));
+		snake_direction_list.push_front(sf::Vector2<int>(-1, 0));
 	}
 
-	void Snake::drawSnake()
+	void Snake::Draw()
 	{
-		for (int i = 1; i < snake_length; ++i) 
+		for (auto i = snake_length - 1; i >= 0; --i)
 		{
 			screen->draw(body[i]);
 		}
-
-		screen->draw(body[0]);
 	}
 
-	bool Snake::died()
+	bool Snake::Died()
 	{
+		// TODO: This self collide check doesn't seem to work.
 		for (int i = BoxSize / (movementScale / 10); i < snake_length; ++i)
 		{
 			if (DoRectanglesOverlap(body[0], body[i]))
@@ -64,12 +59,14 @@ namespace Snake
 		}
 
 		// hitting walls check
-		int x = body[0].getGlobalBounds().left, y = body[0].getGlobalBounds().top;
-		int mx = screen->getSize().x, my = screen->getSize().y;
+		int x = body[0].getGlobalBounds().left;
+		int y = body[0].getGlobalBounds().top;
+		int mx = screen->getSize().x;
+		int my = screen->getSize().y;
 		return (x > mx || x < 0) || (y > my || y < 0);
 	}
 
-	bool Snake::ateFood(Food* fd)
+	bool Snake::AteFood(Food* fd)
 	{
 		if (updateLegth) 
 		{
@@ -89,7 +86,7 @@ namespace Snake
 		return false;
 	}
 
-	void Snake::moveSnake(sf::Vector2<int> direction)
+	void Snake::ChangeDirection(sf::Vector2<int> direction)
 	{
 		snake_direction_list.push_front(direction);
 		lastDirection = snake_direction_list.back();
@@ -105,7 +102,7 @@ namespace Snake
 		}
 	}
 
-	sf::Vector2f Snake::getNextFoodLocation()
+	sf::Vector2f Snake::GetNextFoodLocation()
 	{
 		bool okay = true;
 		while (okay) 

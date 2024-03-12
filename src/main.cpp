@@ -18,14 +18,14 @@
 */
 
 #include "ui/MainMenu.h"
- 
+
 int main() 
 {
-	sf::RenderWindow window( sf::VideoMode( 800, 800 ), "Snake", sf::Style::Close );
+	sf::RenderWindow window(sf::VideoMode(800, 800), "Snake", sf::Style::Close);
 
 	Snake::MainMenu menu( window );
 
-	menu.start();
+	menu.Start();
 
 	return 0;
 }

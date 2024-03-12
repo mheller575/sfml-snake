@@ -65,26 +65,21 @@ namespace Snake
 		/* Constructors */
 		GameController(sf::RenderWindow *w);
 
-		/* Public methods */
-		void start();
-		/* methods to access the resources */
-		sf::Font* getFont( Fonts font ); // no definition yet
+		void Start();
+
+		sf::Font* GetFont(Fonts font); // no definition yet
 
 	private:
-		void gameLoop();
-		void setupScene();
-		void gameOver(); // no definition yet
-		void loadResources(); // no definition yet
+		void GameLoop();
+		void SetupScene();
+		void GameOver(); // no definition yet
+		void LoadResources(); // no definition yet
 
-		/*==================================================*
-		*					Data Members					*
-		*===================================================*/
 		Snake snake;
 		sf::RenderWindow *screen;
 		float scale;
 		int score ;
 
-		/* Resources that the controller retrieves from Disk */
 		sf::Font fontList[3];
 	};
 }

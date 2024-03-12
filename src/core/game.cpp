@@ -19,34 +19,30 @@
 
 #include "Food.h"
 #include "game.h"
-   
-#include <random>
-#include <iostream>
 
 namespace Snake
 {
 	GameController::GameController(sf::RenderWindow * w) 
 		: snake(w)
+		, screen(w)
+		, score(0)
+		, scale(5)
+	{}
+   
+	void GameController::Start()
 	{
-		screen = w;
-		score = 0;
+		LoadResources();
+		GameLoop();
 	}
    
-	void GameController::start()
-	{
-		loadResources();
-		gameLoop();
-	}
-   
-	void GameController::gameLoop()
+	void GameController::GameLoop()
 	{
 		bool loopInvarient = true;
 		sf::Vector2<int> direction(-1,0);
-		scale = 5;
-		Food *food = new Food(snake.getNextFoodLocation());
+		Food *food = new Food(snake.GetNextFoodLocation());
 		while (loopInvarient) 
 		{
-			setupScene();
+			SetupScene();
 			screen->draw(food->GetRectangle());
 			sf::Event event;
 			while (screen->pollEvent(event)) 
@@ -81,19 +77,19 @@ namespace Snake
 				}
 			}
 
-			snake.moveSnake(direction);
+			snake.ChangeDirection(direction);
 
-			if (snake.died()) 
+			if (snake.Died()) 
 			{
 				//game over
 				loopInvarient = false;
 			}
 
-			if (snake.ateFood(food)) 
+			if (snake.AteFood(food)) 
 			{
 				score++;
 				delete food;
-				food = new Food(snake.getNextFoodLocation());
+				food = new Food(snake.GetNextFoodLocation());
 			}
 
 			screen->display();
@@ -101,18 +97,18 @@ namespace Snake
 		}
 	}
 
-	void GameController::setupScene()
+	void GameController::SetupScene()
 	{
 		screen->clear();
-		snake.drawSnake();
+		snake.Draw();
 	}
 
-	void GameController::loadResources()
+	void GameController::LoadResources()
 	{
 		//TODO: Implement
 	}
 
-	sf::Font * GameController::getFont(Fonts font)
+	sf::Font* GameController::GetFont(Fonts font)
 	{
 		return &fontList[font];
 	}
