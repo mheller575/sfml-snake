@@ -18,8 +18,8 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 FetchContent_Declare(gamemenu
-    GIT_REPOSITORY https://github.com/ParadoxZero/GameMenu-cpp.git
-    GIT_TAG 88a755e00f2da8a2d600479085a4bc92b8d5d30f
+    GIT_REPOSITORY https://github.com/mheller575/GameMenu-cpp.git
+    GIT_TAG 332fa07e15fa22ac895a21f2ca66ecd941cf972a
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(gamemenu)
 
@@ -36,11 +36,7 @@ set(SOURCE_FILES
 "src/core/game.cpp"
 )
 
-if(WIN32)
-    add_executable(snake WIN32 ${SOURCE_FILES})
-else()
-    add_executable(snake ${SOURCE_FILES})
-endif()
+add_executable(snake ${SOURCE_FILES})
 
 target_link_libraries(snake PRIVATE sfml-graphics gamemenu)
 target_compile_features(snake PRIVATE cxx_std_17)
@@ -55,7 +51,7 @@ if(WIN32)
     add_custom_command(
         TARGET snake
         COMMENT "Copy OpenAL DLL"
-        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:CMakeSFMLProject>
+        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:snake>
         VERBATIM)
 endif()
 
