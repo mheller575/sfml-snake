@@ -25,9 +25,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "snake.h"
-#include "food.h"
-
-
 
 namespace Snake
 {
@@ -89,6 +86,5 @@ namespace Snake
 
 		/* Resources that the controller retrieves from Disk */
 		sf::Font fontList[3];
-
 	};
 }

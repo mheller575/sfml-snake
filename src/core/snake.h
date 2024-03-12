@@ -23,12 +23,12 @@
 #include <list>
 #include <random>
 
-#include "food.h"
-
 #define SNAKE_MAX_LENGTH 2000
 
 namespace Snake
 {
+	class Food;
+
 	class Random 
 	{
 	public:

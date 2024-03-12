@@ -18,7 +18,7 @@
 */
 
 #include "Utilities.h"
-#include "food.h"
+#include "Food.h"
 
 namespace Snake
 {

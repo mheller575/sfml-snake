@@ -17,6 +17,7 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "Food.h"
 #include "Utilities.h"
 #include "snake.h"
 #include "game.h"
