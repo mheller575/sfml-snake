@@ -17,6 +17,7 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "Utilities.h"
 #include "snake.h"
 #include "game.h"
 
@@ -33,7 +34,7 @@ namespace Snake
 		int x = rand.getRandomInt(screen->getSize().x / 4, screen->getSize().x * 3 / 4);
 		int y = rand.getRandomInt(screen->getSize().y / 4, screen->getSize().y * 3 / 4);
 		{
-			body.push_back(getRectangleAt(sf::Vector2f(x, y), colorHead));
+			body.push_back(BuildRectangleShape(sf::Vector2f(x, y), colorHead));
 			snake_direction_list.push_front(sf::Vector2<int>(-1, 0));
 		}
 
@@ -52,9 +53,9 @@ namespace Snake
 
 	bool Snake::died()
 	{
-		for (int i = BOX_SIZE / (movementScale / 10); i < snake_length; ++i)
+		for (int i = BoxSize / (movementScale / 10); i < snake_length; ++i)
 		{
-			if (checkCollision(body[0], body[i]))
+			if (DoRectanglesOverlap(body[0], body[i]))
 			{
 				return true;
 			}
@@ -74,11 +75,11 @@ namespace Snake
 			updateLegth = false;
 		}
 
-		if (checkCollision(body[0], fd->getFood())) 
+		if (DoRectanglesOverlap(body[0], fd->getFood())) 
 		{
 			updateLegth = true;
 			sf::Vector2f new_location = body[snake_length - 1].getPosition();
-			body.push_back(getRectangleAt(new_location, colorBody));
+			body.push_back(BuildRectangleShape(new_location, colorBody));
 			snake_direction_list.push_back(lastDirection);
 			return true;
 		}
@@ -108,8 +109,8 @@ namespace Snake
 		while (okay) 
 		{
 			/* This loop exists to make sure the new food does not spawn inside the snake */
-			int x = rand.getRandomInt(0, screen->getSize().x - 4 * BOX_SIZE);
-			int y = rand.getRandomInt(0, screen->getSize().y - 4 * BOX_SIZE);
+			int x = rand.getRandomInt(0, screen->getSize().x - 4 * BoxSize);
+			int y = rand.getRandomInt(0, screen->getSize().y - 4 * BoxSize);
 
 			sf::Vector2f food_loc(x, y);
 

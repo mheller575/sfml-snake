@@ -23,8 +23,9 @@
 
 namespace Snake 
 {
-	bool checkCollision(const sf::RectangleShape&, const sf::RectangleShape& );
+	constexpr auto BoxSize = 20;
 
-	/* Returns a rectangle at the specified coordinates */
-	sf::RectangleShape getRectangleAt(sf::Vector2f location, sf::Color);
+	bool DoRectanglesOverlap(const sf::RectangleShape& rectangle1, const sf::RectangleShape& rectangle2);
+
+	sf::RectangleShape BuildRectangleShape(const sf::Vector2f& location, const sf::Color& color);
 }

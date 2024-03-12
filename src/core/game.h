@@ -27,7 +27,7 @@
 #include "snake.h"
 #include "food.h"
 
-#define BOX_SIZE 20 
+
 
 namespace Snake
 {

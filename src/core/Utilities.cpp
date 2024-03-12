@@ -18,25 +18,21 @@
 */
 
 #include "Utilities.h"
-#include "food.h"
 
 namespace Snake
 {
-	Food::Food(sf::RenderWindow* w, sf::Vector2f loc)
+	bool DoRectanglesOverlap(const sf::RectangleShape& rectangle1, const sf::RectangleShape& rectangle2)
 	{
-		location = loc;
-		screen = w;
-		color = sf::Color::Red;
-		food = BuildRectangleShape(location, color);
+		return rectangle1.getGlobalBounds().intersects(rectangle2.getGlobalBounds());
 	}
 
-	sf::RectangleShape Food::getFood()
+	sf::RectangleShape BuildRectangleShape(const sf::Vector2f& location, const sf::Color& color)
 	{
-		return food;
-	}
+		sf::RectangleShape box;
+		box.setSize(sf::Vector2f(BoxSize, BoxSize));
+		box.setPosition(location);
+		box.setFillColor(color);
 
-	void Food::drawFood()
-	{
-		screen->draw(food);
+		return box;
 	}
 }

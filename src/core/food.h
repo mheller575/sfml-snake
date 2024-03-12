@@ -24,11 +24,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "engine.h"
-
 namespace Snake
 {
-	class Food 
+	class Food
 	{
 	public:
 		Food(sf::RenderWindow *, sf::Vector2f loc);
