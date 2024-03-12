@@ -43,11 +43,11 @@ namespace Snake
 		bool loopInvarient = true;
 		sf::Vector2<int> direction(-1,0);
 		scale = 5;
-		Food *food = new Food(screen,snake.getNextFoodLocation());
+		Food *food = new Food(snake.getNextFoodLocation());
 		while (loopInvarient) 
 		{
 			setupScene();
-			food->Draw();
+			screen->draw(food->GetRectangle());
 			sf::Event event;
 			while (screen->pollEvent(event)) 
 			{
@@ -93,7 +93,7 @@ namespace Snake
 			{
 				score++;
 				delete food;
-				food = new Food(screen, snake.getNextFoodLocation());
+				food = new Food(snake.getNextFoodLocation());
 			}
 
 			screen->display();

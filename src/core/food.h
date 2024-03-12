@@ -26,13 +26,11 @@ namespace Snake
 	class Food
 	{
 	public:
-		Food(sf::RenderWindow* wnd, sf::Vector2f loc);
+		Food(sf::Vector2f loc);
 
 		sf::RectangleShape GetRectangle();
-		void Draw();
 
 	private:
 		sf::RectangleShape shape;
-		sf::RenderWindow *screen;
 	};
 }
