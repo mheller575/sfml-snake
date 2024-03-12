@@ -47,7 +47,7 @@ namespace Snake
 		while (loopInvarient) 
 		{
 			setupScene();
-			food->drawFood();
+			food->Draw();
 			sf::Event event;
 			while (screen->pollEvent(event)) 
 			{

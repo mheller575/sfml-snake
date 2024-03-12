@@ -22,20 +22,18 @@
 
 namespace Snake
 {
-	Food::Food(sf::RenderWindow* w, sf::Vector2f loc)
-		: location(loc)
-		, screen(w)
-		, color(sf::Color::Red)
-		, food(BuildRectangleShape(loc, sf::Color::Red))
+	Food::Food(sf::RenderWindow* wnd, sf::Vector2f loc)
+		: screen(wnd)
+		, shape(BuildRectangleShape(loc, sf::Color::Red))
 	{}
 
-	sf::RectangleShape Food::getFood()
+	sf::RectangleShape Food::GetRectangle()
 	{
-		return food;
+		return shape;
 	}
 
-	void Food::drawFood()
+	void Food::Draw()
 	{
-		screen->draw(food);
+		screen->draw(shape);
 	}
 }

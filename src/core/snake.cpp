@@ -77,7 +77,7 @@ namespace Snake
 			updateLegth = false;
 		}
 
-		if (DoRectanglesOverlap(body[0], fd->getFood())) 
+		if (DoRectanglesOverlap(body[0], fd->GetRectangle())) 
 		{
 			updateLegth = true;
 			sf::Vector2f new_location = body[snake_length - 1].getPosition();
