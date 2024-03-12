@@ -26,7 +26,7 @@
 
 #include "engine.h"
 
-namespace game 
+namespace Snake
 {
 	class Food 
 	{

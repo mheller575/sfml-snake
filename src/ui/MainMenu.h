@@ -23,7 +23,7 @@
 #include <game_menu/game_menu.h>
 #include <memory>
 
-namespace game 
+namespace Snake
 {
 	class MainMenu 
 	{

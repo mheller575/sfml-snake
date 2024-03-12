@@ -21,7 +21,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace game 
+namespace Snake 
 {
 	bool checkCollision(const sf::RectangleShape&, const sf::RectangleShape& );
 

@@ -21,7 +21,8 @@
    
 #include <random>
 #include <iostream>
-namespace game
+
+namespace Snake
 {
 	GameController::GameController(sf::RenderWindow * w) 
 		: snake(w)

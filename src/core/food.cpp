@@ -19,7 +19,7 @@
 
 #include "food.h"
 
-namespace game
+namespace Snake
 {
 	Food::Food(sf::RenderWindow* w, sf::Vector2f loc)
 	{

@@ -20,7 +20,7 @@
 #include "snake.h"
 #include "game.h"
 
-namespace game
+namespace Snake
 {
 	Snake::Snake(sf::RenderWindow* w)
 	{

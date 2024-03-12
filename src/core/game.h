@@ -29,7 +29,7 @@
 
 #define BOX_SIZE 20 
 
-namespace game 
+namespace Snake
 {
 	/*
 	GameController is the central interface of the game.

@@ -27,7 +27,7 @@
 
 #define SNAKE_MAX_LENGTH 2000
 
-namespace game 
+namespace Snake
 {
 	class Random 
 	{

@@ -21,7 +21,7 @@
 
 #include "core/game.h"
 
-namespace game
+namespace Snake
 {
 	MainMenu::MainMenu(sf::RenderWindow& w)
 		: _window(w)
@@ -91,7 +91,7 @@ namespace game
 				"New Game",
 				[&](sf::RenderTarget& target) 
 				{
-					game::GameController gameController(&_window);
+					GameController gameController(&_window);
 					gameController.start();
 				}
 			},
