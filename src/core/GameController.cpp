@@ -18,15 +18,15 @@
 */
 
 #include "Food.h"
-#include "game.h"
+#include "GameController.h"
 
 namespace Snake
 {
 	GameController::GameController(sf::RenderWindow * w) 
-		: snake(w)
-		, screen(w)
-		, score(0)
-		, scale(5)
+		: _snake(w)
+		, _screen(w)
+		, _score(0)
+		, _scale(5)
 	{}
    
 	void GameController::Start()
@@ -39,13 +39,13 @@ namespace Snake
 	{
 		bool loopInvarient = true;
 		sf::Vector2<int> direction(-1,0);
-		Food *food = new Food(snake.GetNextFoodLocation());
+		Food *food = new Food(_snake.GetNextFoodLocation());
 		while (loopInvarient) 
 		{
 			SetupScene();
-			screen->draw(food->GetRectangle());
+			_screen->draw(food->GetRectangle());
 			sf::Event event;
-			while (screen->pollEvent(event)) 
+			while (_screen->pollEvent(event)) 
 			{
 				if (event.type == sf::Event::KeyReleased) 
 				{
@@ -77,30 +77,30 @@ namespace Snake
 				}
 			}
 
-			snake.ChangeDirection(direction);
+			_snake.ChangeDirection(direction);
 
-			if (snake.Died()) 
+			if (_snake.Died()) 
 			{
 				//game over
 				loopInvarient = false;
 			}
 
-			if (snake.AteFood(food)) 
+			if (_snake.AteFood(food)) 
 			{
-				score++;
+				_score++;
 				delete food;
-				food = new Food(snake.GetNextFoodLocation());
+				food = new Food(_snake.GetNextFoodLocation());
 			}
 
-			screen->display();
-			screen->setFramerateLimit(60);
+			_screen->display();
+			_screen->setFramerateLimit(60);
 		}
 	}
 
 	void GameController::SetupScene()
 	{
-		screen->clear();
-		snake.Draw();
+		_screen->clear();
+		_snake.Draw();
 	}
 
 	void GameController::LoadResources()

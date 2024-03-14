@@ -39,22 +39,22 @@ namespace Snake
 		sf::Vector2f GetNextFoodLocation();
 		
 	private:
-		sf::RenderWindow *screen;
+		sf::RenderWindow *_screen;
 
 		/* Used to determine whether or not to increment length of snake */
-		bool updateLegth;
+		bool _updateLength;
 
 		/* The rate of movement of snake */
-		float movementScale;
+		float _movementScale;
 
 		/* Snake parameters */
-		int snake_length;
-		std::list<sf::Vector2<int>> snake_direction_list;
-		sf::Vector2<int> lastDirection;
-		std::vector<sf::RectangleShape> body;
+		int _snakeLength;
+		std::list<sf::Vector2<int>> _snakeDirectionList;
+		sf::Vector2<int> _lastDirection;
+		std::vector<sf::RectangleShape> _body;
 
 		/* Load from options */
-		sf::Color colorBody;
-		sf::Color colorHead;
+		sf::Color _colorBody;
+		sf::Color _colorHead;
 	};
 }

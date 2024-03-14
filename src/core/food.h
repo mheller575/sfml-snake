@@ -31,6 +31,6 @@ namespace Snake
 		sf::RectangleShape GetRectangle();
 
 	private:
-		sf::RectangleShape shape;
+		sf::RectangleShape _shape;
 	};
 }

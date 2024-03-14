@@ -75,10 +75,10 @@ namespace Snake
 		void GameOver(); // no definition yet
 		void LoadResources(); // no definition yet
 
-		Snake snake;
-		sf::RenderWindow *screen;
-		float scale;
-		int score ;
+		Snake _snake;
+		sf::RenderWindow* _screen;
+		float _scale;
+		int _score ;
 
 		sf::Font fontList[3];
 	};

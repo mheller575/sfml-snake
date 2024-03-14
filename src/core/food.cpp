@@ -17,17 +17,17 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Utilities.h"
 #include "Food.h"
+#include "Utilities.h"
 
 namespace Snake
 {
 	Food::Food(sf::Vector2f loc)
-		: shape(BuildRectangleShape(loc, sf::Color::Red))
+		: _shape(BuildRectangleShape(loc, sf::Color::Red))
 	{}
 
 	sf::RectangleShape Food::GetRectangle()
 	{
-		return shape;
+		return _shape;
 	}
 }

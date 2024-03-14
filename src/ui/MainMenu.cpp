@@ -19,7 +19,7 @@
 
 #include "MainMenu.h"
 
-#include "core/game.h"
+#include "core/GameController.h"
 
 namespace Snake
 {
@@ -40,14 +40,19 @@ namespace Snake
 				_window.close();
 				break;
 			}
+
 			sf::Event event;
-			while (_window.pollEvent(event)) {
-				if (event.type == sf::Event::Closed) {
+			while (_window.pollEvent(event)) 
+			{
+				if (event.type == sf::Event::Closed) 
+				{
 					_is_exit_requested = true;
 					break;
 				}
+
 				menu_handle_event(_current_menu, event);
 			}
+
 			_window.clear();
 			menu_render(_current_menu);
 			_window.display();
