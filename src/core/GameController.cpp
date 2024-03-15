@@ -39,11 +39,11 @@ namespace Snake
 	{
 		bool loopInvarient = true;
 		sf::Vector2<int> direction(-1,0);
-		Food *food = new Food(_snake.GetNextFoodLocation());
+		Food food(_snake.GetNextFoodLocation());
 		while (loopInvarient) 
 		{
 			SetupScene();
-			_screen->draw(food->GetRectangle());
+			_screen->draw(food.GetRectangle());
 			sf::Event event;
 			while (_screen->pollEvent(event)) 
 			{
@@ -85,11 +85,10 @@ namespace Snake
 				loopInvarient = false;
 			}
 
-			if (_snake.AteFood(food)) 
+			if (_snake.AteFood(&food))
 			{
 				_score++;
-				delete food;
-				food = new Food(_snake.GetNextFoodLocation());
+				food = Food(_snake.GetNextFoodLocation());
 			}
 
 			_screen->display();
