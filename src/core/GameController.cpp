@@ -37,6 +37,7 @@ namespace Snake
    
 	void GameController::GameLoop()
 	{
+		_screen->setFramerateLimit(60);
 		bool loopInvarient = true;
 		sf::Vector2<int> direction(-1,0);
 		Food food(_snake.GetNextFoodLocation());
@@ -92,7 +93,6 @@ namespace Snake
 			}
 
 			_screen->display();
-			_screen->setFramerateLimit(60);
 		}
 	}
 
