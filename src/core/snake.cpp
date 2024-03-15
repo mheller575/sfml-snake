@@ -25,6 +25,8 @@
 
 namespace Snake
 {
+	bool IsFoodInSnake(const sf::Vector2f& foodPoint, const std::vector<sf::RectangleShape>& snake);
+
 	Snake::Snake(sf::RenderWindow* w)
 		: _colorBody(sf::Color::Green)
 		, _colorHead(sf::Color::Yellow)
@@ -104,28 +106,29 @@ namespace Snake
 
 	sf::Vector2f Snake::GetNextFoodLocation()
 	{
-		bool okay = true;
-		while (okay) 
+		sf::Vector2f foodPoint;
+		do
 		{
-			/* This loop exists to make sure the new food does not spawn inside the snake */
-			int x = GetRandomNumber(0, _screen->getSize().x - 4 * BoxSize);
-			int y = GetRandomNumber(0, _screen->getSize().y - 4 * BoxSize);
+			const auto x = GetRandomNumber(0, _screen->getSize().x - 4 * BoxSize);
+			const auto y = GetRandomNumber(0, _screen->getSize().y - 4 * BoxSize);
 
-			sf::Vector2f food_loc(x, y);
+			foodPoint = sf::Vector2f(x, y);
+		} 
+		while (IsFoodInSnake(foodPoint, _body));
 
-			okay = true;
-			for (int i = 0; i < _snakeLength; ++i)
+		return foodPoint;
+	}
+
+	bool IsFoodInSnake(const sf::Vector2f& foodPoint, const std::vector<sf::RectangleShape>& snake)
+	{
+		for (const auto& segment : snake)
+		{
+			if (segment.getGlobalBounds().contains(foodPoint))
 			{
-				if (_body[i].getGlobalBounds().contains(food_loc)) 
-				{
-					okay = false;
-				}
-			}
-
-			if (okay)
-			{
-				return food_loc;
+				return true;
 			}
 		}
+
+		return false;
 	}
 }
