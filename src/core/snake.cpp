@@ -43,23 +43,14 @@ namespace Snake
 
 	void Snake::Draw()
 	{
-		for (auto i = _snakeLength - 1; i >= 0; --i)
+		for (auto i = _body.rbegin(); i != _body.rend(); ++i)
 		{
-			_screen->draw(_body[i]);
+			_screen->draw(*i);
 		}
 	}
 
 	bool Snake::Died()
 	{
-		// TODO: This self collide check doesn't seem to work.
-		for (int i = BoxSize / (_movementScale / 10); i < _snakeLength; ++i)
-		{
-			if (DoRectanglesOverlap(_body[0], _body[i]))
-			{
-				return true;
-			}
-		}
-
 		// hitting walls check
 		int x = _body[0].getGlobalBounds().left;
 		int y = _body[0].getGlobalBounds().top;
@@ -79,9 +70,9 @@ namespace Snake
 		if (DoRectanglesOverlap(_body[0], fd->GetRectangle())) 
 		{
 			_updateLength = true;
-			sf::Vector2f new_location = _body[_snakeLength - 1].getPosition();
+			sf::Vector2f new_location = _body[_body.size() - 1].getPosition();
 			_body.push_back(BuildRectangleShape(new_location, _colorBody));
-			_snakeDirectionList.push_back(_lastDirection);
+			_snakeDirectionList.push_back(_snakeDirectionList.back());
 			return true;
 		}
 
@@ -91,7 +82,6 @@ namespace Snake
 	void Snake::ChangeDirection(sf::Vector2<int> direction)
 	{
 		_snakeDirectionList.push_front(direction);
-		_lastDirection = _snakeDirectionList.back();
 		_snakeDirectionList.pop_back();
 
 		std::list<sf::Vector2<int>>::iterator i = _snakeDirectionList.begin();

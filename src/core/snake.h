@@ -50,7 +50,6 @@ namespace Snake
 		/* Snake parameters */
 		int _snakeLength;
 		std::list<sf::Vector2<int>> _snakeDirectionList;
-		sf::Vector2<int> _lastDirection;
 		std::vector<sf::RectangleShape> _body;
 
 		/* Load from options */
