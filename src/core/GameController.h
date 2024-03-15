@@ -19,67 +19,22 @@
 
 #pragma once
 
-#include <random>
-#include <list>
-
 #include <SFML/Graphics.hpp>
 
 #include "snake.h"
 
 namespace Snake
 {
-	/*
-	GameController is the central interface of the game.
-	This class will monitor the working of game:
-	*	Movement of snake
-	*	Checking collisions
-	*	When to play sound etc
-	*/	
-
-	const std::string MenuStrings[5] = {
-		"Game Over!",
-		"Do you wish to continue?",
-		"Yes",
-		"No",
-		"Exit"
-	}; //menu strings
-
-	enum MenuText {
-		GameOver,
-		Continue,
-		Yes,
-		No,
-		Exit,
-	}; //menuText
-
-	enum Fonts {
-
-	};
-
-	/*==================================================*
-	*			The main game controller				*
-	*===================================================*/
 	class GameController 
 	{
 	public:
-		/* Constructors */
 		GameController(sf::RenderWindow *w);
 
-		void Start();
-
-		sf::Font* GetFont(Fonts font); // no definition yet
+		void Run();
 
 	private:
-		void GameLoop();
-		void SetupScene();
-		void GameOver(); // no definition yet
-		void LoadResources(); // no definition yet
-
 		Snake _snake;
 		sf::RenderWindow* _screen;
 		float _scale;
-		int _score ;
-
-		sf::Font fontList[3];
 	};
 }

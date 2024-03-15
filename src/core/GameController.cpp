@@ -25,54 +25,48 @@ namespace Snake
 	GameController::GameController(sf::RenderWindow * w) 
 		: _snake(w)
 		, _screen(w)
-		, _score(0)
 		, _scale(5)
 	{}
    
-	void GameController::Start()
-	{
-		LoadResources();
-		GameLoop();
-	}
-   
-	void GameController::GameLoop()
+	void GameController::Run()
 	{
 		_screen->setFramerateLimit(60);
-		bool loopInvarient = true;
-		sf::Vector2<int> direction(-1,0);
+		sf::Vector2<int> direction(-1, 0);
 		Food food(_snake.GetNextFoodLocation());
-		while (loopInvarient) 
+		while (true)
 		{
-			SetupScene();
+			_screen->clear();
+			_snake.Draw();
+
 			_screen->draw(food.GetRectangle());
 			sf::Event event;
-			while (_screen->pollEvent(event)) 
+			while (_screen->pollEvent(event))
 			{
-				if (event.type == sf::Event::KeyReleased) 
+				if (event.type == sf::Event::KeyReleased)
 				{
-					if (event.key.code == sf::Keyboard::Up) 
+					if (event.key.code == sf::Keyboard::Up)
 					{
 						direction.y = -1;
 						direction.x = 0;
-					} 
-					else if (event.key.code == sf::Keyboard::Down) 
+					}
+					else if (event.key.code == sf::Keyboard::Down)
 					{
 						direction.y = 1;
 						direction.x = 0;
 					}
-					else if (event.key.code == sf::Keyboard::Left) 
+					else if (event.key.code == sf::Keyboard::Left)
 					{
 						direction.x = -1;
 						direction.y = 0;
 					}
-					else if (event.key.code == sf::Keyboard::Right) 
+					else if (event.key.code == sf::Keyboard::Right)
 					{
 						direction.x = 1;
 						direction.y = 0;
 					}
 				}
 
-				if (event.type == sf::Event::Closed) 
+				if (event.type == sf::Event::Closed)
 				{
 					exit(0);
 				}
@@ -80,35 +74,17 @@ namespace Snake
 
 			_snake.ChangeDirection(direction);
 
-			if (_snake.Died()) 
+			if (_snake.Died())
 			{
-				//game over
-				loopInvarient = false;
+				break;
 			}
 
 			if (_snake.AteFood(&food))
 			{
-				_score++;
 				food = Food(_snake.GetNextFoodLocation());
 			}
 
 			_screen->display();
 		}
-	}
-
-	void GameController::SetupScene()
-	{
-		_screen->clear();
-		_snake.Draw();
-	}
-
-	void GameController::LoadResources()
-	{
-		//TODO: Implement
-	}
-
-	sf::Font* GameController::GetFont(Fonts font)
-	{
-		return &fontList[font];
 	}
 }
