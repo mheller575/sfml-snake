@@ -21,8 +21,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "snake.h"
-
 namespace Snake
 {
 	class GameController 
