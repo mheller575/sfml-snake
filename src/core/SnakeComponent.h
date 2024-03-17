@@ -44,7 +44,7 @@ namespace Snake
 
 		void Draw(sf::RenderWindow& window) const override;
 
-		void NextDirection(const std::optional<Direction>& nextDirection);
+		void NextDirection(const Direction& nextDirection);
 
 		void DecreaseLength();
 

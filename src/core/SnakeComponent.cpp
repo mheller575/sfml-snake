@@ -40,21 +40,18 @@ namespace Snake
 		}
 	}
 
-	void SnakeComponent::NextDirection(const std::optional<Direction>& nextDirection)
+	void SnakeComponent::NextDirection(const Direction& nextDirection)
 	{
-		auto direction = nextDirection.has_value() ? nextDirection.value() : _lastDirection;
-		
-		if ((direction == Direction::Up && _lastDirection == Direction::Down) || (direction == Direction::Down && _lastDirection == Direction::Up) ||
-			(direction == Direction::Left && _lastDirection == Direction::Right) || (direction == Direction::Right && _lastDirection == Direction::Left))
+		if (!(nextDirection == Direction::Up && _lastDirection == Direction::Down) && !(nextDirection == Direction::Down && _lastDirection == Direction::Up) &&
+			!(nextDirection == Direction::Left && _lastDirection == Direction::Right) && !(nextDirection == Direction::Right && _lastDirection == Direction::Left))
 		{
-			direction = _lastDirection;
+			_lastDirection = nextDirection;
 		}
 
-		_lastDirection = direction;
 		std::int32_t x = _snake.front().getPosition().x;
 		std::int32_t y = _snake.front().getPosition().y;
 
-		switch (direction)
+		switch (_lastDirection)
 		{
 		case Direction::Up:
 			y -= BoxSize;

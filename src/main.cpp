@@ -22,9 +22,7 @@
 int main() 
 {
 	sf::RenderWindow window(sf::VideoMode(800, 800), "Snake", sf::Style::Close);
-
 	Snake::MainMenu menu(window);
-
 	menu.Start();
 
 	return 0;

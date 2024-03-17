@@ -56,7 +56,7 @@ namespace Snake
 		_food.Draw(window);
 	}
 
-	bool GameBoard::Run(const std::optional<Direction>& direction)
+	bool GameBoard::Run(const Direction& direction)
 	{
 		const auto currentTimeUs = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 

@@ -35,7 +35,7 @@ namespace Snake
 
 		void Draw(sf::RenderWindow& window) const override;
 
-		bool Run(const std::optional<Direction>& direction);
+		bool Run(const Direction& direction);
 
 	private:
 		const std::int32_t _maxWindowX;
