@@ -20,43 +20,29 @@
 #pragma once
 
 #include <cstdint>
-#include <list>
 #include <optional>
 
-#include <SFML/Graphics.hpp>
-
-#include "IComponent.h"
+#include "FoodComponent.h"
+#include "SnakeComponent.h"
 
 namespace Snake
 {
-	enum class Direction
-	{
-		Up,
-		Right,
-		Down,
-		Left,
-	};
-
-	class SnakeComponent : public IComponent
+	class GameBoard : public IComponent
 	{
 	public:
-		SnakeComponent(const std::int32_t& startingX, const std::int32_t& startingY, const Direction& startingDirection, const sf::Color& headColor, const sf::Color& bodyColor);
+		GameBoard(const SnakeComponent& snakeComponent, const FoodComponent& foodComponent, const std::int64_t& updateRateUs, 
+			const std::int32_t& maxWindowX, const std::int32_t& maxWindowY);
 
 		void Draw(sf::RenderWindow& window) const override;
 
-		void NextDirection(const std::optional<Direction>& nextDirection, const bool& increaseLength);
-
-		bool OverlapsRectangle(const sf::RectangleShape& rectangle) const;
-
-		bool DoesSnakeCrossItself() const;
-
-		bool DoesSnakeLeaveWindow(const std::int32_t& x, const std::int32_t& y);
+		bool Run(const std::optional<Direction>& direction);
 
 	private:
-		const sf::Color _headColor;
-		const sf::Color _bodyColor;
-
-		Direction _lastDirection;
-		std::list<sf::RectangleShape> _snake;
+		const std::int32_t _maxWindowX;
+		const std::int32_t _maxWindowY;
+		const std::int64_t _updateRateUs = 0;
+		std::int64_t _lastTimeUs = 0;
+		SnakeComponent _snake;
+		FoodComponent _food;
 	};
 }

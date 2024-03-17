@@ -20,6 +20,7 @@
 #include "MainMenu.h"
 
 #include "core/GameController.h"
+#include "core/RandomNumberGenerator.h"
 
 namespace Snake
 {
@@ -96,7 +97,20 @@ namespace Snake
 				"New Game",
 				[&](sf::RenderTarget& target) 
 				{
-					GameController gameController(5, _window);
+					const auto windowMaxX = _window.getSize().x;
+					const auto windowMaxY = _window.getSize().y;
+
+					const auto foodX = GetRandomNumber(0, windowMaxX);
+					const auto foodY = GetRandomNumber(0, windowMaxY);
+
+					const auto snakeX = GetRandomNumber(0, windowMaxX);
+					const auto snakeY = GetRandomNumber(0, windowMaxY);
+					
+					FoodComponent foodComponent(sf::Vector2f(GetRandomNumber(0, windowMaxX), GetRandomNumber(0, windowMaxY)));
+					SnakeComponent snakeComponent(snakeX, snakeY, Direction::Right, sf::Color::Green, sf::Color::Yellow);
+					GameBoard gameBoard(snakeComponent, foodComponent, 100000, windowMaxX, windowMaxY);
+					GameController gameController(Direction::Right, gameBoard, _window);
+
 					gameController.Run();
 				}
 			},

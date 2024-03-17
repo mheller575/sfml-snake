@@ -17,96 +17,60 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Food.h"
 #include "GameController.h"
-#include "RandomNumberGenerator.h"
-#include "SnakeComponent.h"
-#include "Utilities.h"
 
 namespace Snake
 {
-	Food GetNextFood(const sf::RenderWindow& window, const SnakeComponent& snake);
-
-	GameController::GameController(const std::int32_t& scaling, sf::RenderWindow& window) 
+	GameController::GameController(const Direction& initialDirection, const GameBoard& gameBoard, sf::RenderWindow& window)
 		: _screen(window)
-		, _scale(scaling)
-	{}
+		, _initialDirection(initialDirection)
+		, _gameBoard(gameBoard)
+	{
+		_screen.setFramerateLimit(60);
+	}
 
 	void GameController::Run()
 	{
-		_screen.setFramerateLimit(15);
-
-		const auto x = GetRandomNumber(_screen.getSize().x / 4, _screen.getSize().x * 3 / 4);
-		const auto y = GetRandomNumber(_screen.getSize().y / 4, _screen.getSize().y * 3 / 4);
-
-		auto direction = Direction::Right;
-		SnakeComponent snake(x, y, direction, sf::Color::Green, sf::Color::Yellow);
-		auto food = GetNextFood(_screen, snake);
+		auto direction = _initialDirection;
 		while (true)
 		{
 			_screen.clear();
-			snake.Draw(_screen);
-			_screen.draw(food.GetRectangle());
-
 			sf::Event event;
 			while (_screen.pollEvent(event))
 			{
 				if (event.type == sf::Event::KeyReleased)
 				{
-					if (event.key.code == sf::Keyboard::Up && direction != Direction::Down)
+					if (event.key.code == sf::Keyboard::Up)
 					{
 						direction = Direction::Up;
 					}
-					else if (event.key.code == sf::Keyboard::Down && direction != Direction::Up)
+					else if (event.key.code == sf::Keyboard::Down)
 					{
 						direction = Direction::Down;
 					}
-					else if (event.key.code == sf::Keyboard::Left && direction != Direction::Right)
+					else if (event.key.code == sf::Keyboard::Left)
 					{
 						direction = Direction::Left;
 					}
-					else if (event.key.code == sf::Keyboard::Right && direction != Direction::Left)
+					else if (event.key.code == sf::Keyboard::Right)
 					{
 						direction = Direction::Right;
 					}
 				}
-
-				if (event.type == sf::Event::Closed)
+				else if (event.type == sf::Event::Closed)
 				{
 					exit(0);
 				}
 			}
 
-			if (snake.DoesSnakeCrossItself() || snake.DoesSnakeLeaveWindow(_screen.getSize().x, _screen.getSize().y))
+			if (!_gameBoard.Run(direction))
 			{
-				break;
+				return;
 			}
 
-			const auto snakeAte = snake.OverlapsRectangle(food.GetRectangle());
-			snake.NextDirection(direction, snakeAte);
-
-			if (snakeAte)
-			{
-				food = GetNextFood(_screen, snake);
-			}
+			_gameBoard.Draw(_screen);
 
 			_screen.display();
 		}
-	}
-
-	Food GetNextFood(const sf::RenderWindow& window, const SnakeComponent& snake)
-	{
-		sf::Vector2f point;
-		while (true)
-		{
-			point = sf::Vector2f(GetRandomNumber(0, window.getSize().x - 4 * BoxSize), GetRandomNumber(0, window.getSize().y - 4 * BoxSize));
-			auto rect = BuildRectangleShape(point, sf::Color::Black);
-			if (!snake.OverlapsRectangle(rect))
-			{
-				break;
-			}
-		}
-
-		return Food(point);
 	}
 }

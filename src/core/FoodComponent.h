@@ -17,17 +17,24 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Food.h"
-#include "Utilities.h"
+#pragma once
+
+#include <SFML/Graphics.hpp>
+
+#include "IComponent.h"
 
 namespace Snake
 {
-	Food::Food(sf::Vector2f loc)
-		: _shape(BuildRectangleShape(loc, sf::Color::Red))
-	{}
-
-	sf::RectangleShape Food::GetRectangle()
+	class FoodComponent : public IComponent
 	{
-		return _shape;
-	}
+	public:
+		FoodComponent(sf::Vector2f position);
+
+		void Draw(sf::RenderWindow& window) const override;
+
+		sf::RectangleShape GetShape() const;
+
+	private:
+		sf::RectangleShape _shape;
+	};
 }

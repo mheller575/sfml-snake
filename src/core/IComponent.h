@@ -23,14 +23,11 @@
 
 namespace Snake
 {
-	class Food
+	class IComponent
 	{
 	public:
-		Food(sf::Vector2f loc);
+		virtual ~IComponent() = default;
 
-		sf::RectangleShape GetRectangle();
-
-	private:
-		sf::RectangleShape _shape;
+		virtual void Draw(sf::RenderWindow& window) const = 0;
 	};
 }

@@ -17,6 +17,8 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <iostream>
+
 #include "SnakeComponent.h"
 #include "Utilities.h"
 
@@ -25,6 +27,7 @@ namespace Snake
 	SnakeComponent::SnakeComponent(const std::int32_t& startingX, const std::int32_t& startingY, const Direction& startingDirection, const sf::Color& headColor, const sf::Color& bodyColor)
 		: _headColor(headColor)
 		, _bodyColor(bodyColor)
+		, _lastDirection(startingDirection)
 	{
 		_snake.push_front(BuildRectangleShape(sf::Vector2f(startingX, startingY), headColor));
 	}
@@ -37,12 +40,21 @@ namespace Snake
 		}
 	}
 
-	void SnakeComponent::NextDirection(const Direction& nextDirection, const bool& increaseLength)
+	void SnakeComponent::NextDirection(const std::optional<Direction>& nextDirection, const bool& increaseLength)
 	{
+		auto direction = nextDirection.has_value() ? nextDirection.value() : _lastDirection;
+		
+		if ((direction == Direction::Up && _lastDirection == Direction::Down) || (direction == Direction::Down && _lastDirection == Direction::Up) ||
+			(direction == Direction::Left && _lastDirection == Direction::Right) || (direction == Direction::Right && _lastDirection == Direction::Left))
+		{
+			direction = _lastDirection;
+		}
+
+		_lastDirection = direction;
 		std::int32_t x = _snake.front().getPosition().x;
 		std::int32_t y = _snake.front().getPosition().y;
 
-		switch (nextDirection)
+		switch (direction)
 		{
 		case Direction::Up:
 			y -= BoxSize;
@@ -71,7 +83,15 @@ namespace Snake
 
 	bool SnakeComponent::OverlapsRectangle(const sf::RectangleShape& rectangle) const
 	{
-		return DoRectanglesOverlap(rectangle, _snake.front());
+		for (const auto& segment : _snake)
+		{
+			if (DoRectanglesOverlap(rectangle, segment))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	bool SnakeComponent::DoesSnakeCrossItself() const

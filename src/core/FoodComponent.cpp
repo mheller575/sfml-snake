@@ -17,26 +17,22 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
-#include <cstdint>
-
-#include <SFML/Graphics.hpp>
-
-#include "GameBoard.h"
+#include "FoodComponent.h"
+#include "Utilities.h"
 
 namespace Snake
 {
-	class GameController 
+	FoodComponent::FoodComponent(sf::Vector2f position)
+		: _shape(BuildRectangleShape(position, sf::Color::Red))
+	{}
+
+	void FoodComponent::Draw(sf::RenderWindow& window) const
 	{
-	public:
-		GameController(const Direction& initialDirection, const GameBoard& gameBoard, sf::RenderWindow& window);
+		window.draw(_shape);
+	}
 
-		void Run();
-
-	private:
-		sf::RenderWindow& _screen;
-		Direction _initialDirection;
-		GameBoard _gameBoard;
-	};
+	sf::RectangleShape FoodComponent::GetShape() const
+	{
+		return _shape;
+	}
 }
