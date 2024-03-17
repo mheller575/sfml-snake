@@ -40,7 +40,7 @@ namespace Snake
 		}
 	}
 
-	void SnakeComponent::NextDirection(const std::optional<Direction>& nextDirection, const bool& increaseLength)
+	void SnakeComponent::NextDirection(const std::optional<Direction>& nextDirection)
 	{
 		auto direction = nextDirection.has_value() ? nextDirection.value() : _lastDirection;
 		
@@ -74,11 +74,11 @@ namespace Snake
 
 		_snake.front().setFillColor(_bodyColor);
 		_snake.push_front(BuildRectangleShape(sf::Vector2f(x, y), _headColor));
+	}
 
-		if (!increaseLength)
-		{
-			_snake.pop_back();
-		}
+	void SnakeComponent::DecreaseLength()
+	{
+		_snake.pop_back();
 	}
 
 	bool SnakeComponent::OverlapsRectangle(const sf::RectangleShape& rectangle) const

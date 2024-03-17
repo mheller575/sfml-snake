@@ -69,7 +69,6 @@ namespace Snake
 			}
 
 			_gameBoard.Draw(_screen);
-
 			_screen.display();
 		}
 	}

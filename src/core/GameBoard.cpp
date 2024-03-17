@@ -64,13 +64,18 @@ namespace Snake
 		{
 			_lastTimeUs = currentTimeUs;
 
+			_snake.NextDirection(direction);
 			auto snakeAte = _snake.OverlapsRectangle(_food.GetShape());
-			_snake.NextDirection(direction, snakeAte);
+			
 			if (snakeAte)
 			{
 				_food = GetNextFood(_maxWindowX, _maxWindowY, _snake);
 			}
-
+			else
+			{
+				_snake.DecreaseLength();
+			}
+			
 			if (_snake.DoesSnakeCrossItself() || _snake.DoesSnakeLeaveWindow(_maxWindowX, _maxWindowY))
 			{
 				return false; // Snake died, return false alerting caller.

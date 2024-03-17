@@ -44,7 +44,9 @@ namespace Snake
 
 		void Draw(sf::RenderWindow& window) const override;
 
-		void NextDirection(const std::optional<Direction>& nextDirection, const bool& increaseLength);
+		void NextDirection(const std::optional<Direction>& nextDirection);
+
+		void DecreaseLength();
 
 		bool OverlapsRectangle(const sf::RectangleShape& rectangle) const;
 
