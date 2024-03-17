@@ -19,41 +19,39 @@
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <list>
+
+#include <SFML/Graphics.hpp>
 
 namespace Snake
 {
-	class Food;
+	enum class Direction
+	{
+		Up,
+		Right,
+		Down,
+		Left,
+	};
 
-	constexpr auto SNAKE_MAX_LENGTH = 2000;
-
-	class Snake 
+	class SnakeComponent
 	{
 	public:
-		Snake(sf::RenderWindow *);
-		void Draw();
-		bool Died();
-		bool AteFood(Food *fd);
-		void ChangeDirection(sf::Vector2<int> direction);
-		sf::Vector2f GetNextFoodLocation();
-		
+		SnakeComponent(const int& startingX, const int& startingY, const Direction& startingDirection, const sf::Color& headColor, const sf::Color& bodyColor);
+
+		void Draw(sf::RenderWindow& window) const;
+
+		void NextDirection(const Direction& nextDirection, const bool& increaseLength);
+
+		bool OverlapsRectangle(const sf::RectangleShape& rectangle) const;
+
+		bool DoesSnakeCrossItself() const;
+
+		bool DoesSnakeLeaveWindow(const int& x, const int& y);
+
 	private:
-		sf::RenderWindow *_screen;
+		const sf::Color _headColor;
+		const sf::Color _bodyColor;
 
-		/* Used to determine whether or not to increment length of snake */
-		bool _updateLength;
-
-		/* The rate of movement of snake */
-		float _movementScale;
-
-		/* Snake parameters */
-		int _snakeLength;
-		std::list<sf::Vector2<int>> _snakeDirectionList;
-		std::vector<sf::RectangleShape> _body;
-
-		/* Load from options */
-		sf::Color _colorBody;
-		sf::Color _colorHead;
+		std::list<sf::RectangleShape> _snake;
 	};
 }

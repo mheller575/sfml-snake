@@ -33,7 +33,6 @@ namespace Snake
 		void Run();
 
 	private:
-		Snake _snake;
 		sf::RenderWindow* _screen;
 		float _scale;
 	};
