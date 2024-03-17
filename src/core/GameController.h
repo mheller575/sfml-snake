@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include <cstdint>
+
 #include <SFML/Graphics.hpp>
 
 namespace Snake
@@ -26,12 +28,12 @@ namespace Snake
 	class GameController 
 	{
 	public:
-		GameController(sf::RenderWindow *w);
+		GameController(sf::RenderWindow& window);
 
 		void Run();
 
 	private:
-		sf::RenderWindow* _screen;
-		float _scale;
+		sf::RenderWindow& _screen;
+		std::int32_t _scale;
 	};
 }

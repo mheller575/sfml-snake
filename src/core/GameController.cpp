@@ -25,8 +25,8 @@
 
 namespace Snake
 {
-	GameController::GameController(sf::RenderWindow * w) 
-		: _screen(w)
+	GameController::GameController(sf::RenderWindow& window) 
+		: _screen(window)
 		, _scale(5)
 	{}
    
@@ -48,22 +48,22 @@ namespace Snake
 
 	void GameController::Run()
 	{
-		_screen->setFramerateLimit(15);
+		_screen.setFramerateLimit(15);
 
-		const auto x = GetRandomNumber(_screen->getSize().x / 4, _screen->getSize().x * 3 / 4);
-		const auto y = GetRandomNumber(_screen->getSize().y / 4, _screen->getSize().y * 3 / 4);
+		const auto x = GetRandomNumber(_screen.getSize().x / 4, _screen.getSize().x * 3 / 4);
+		const auto y = GetRandomNumber(_screen.getSize().y / 4, _screen.getSize().y * 3 / 4);
 
 		auto direction = Direction::Right;
 		SnakeComponent snake(x, y, direction, sf::Color::Green, sf::Color::Yellow);
-		auto food = GetNextFood(*_screen, snake);
+		auto food = GetNextFood(_screen, snake);
 		while (true)
 		{
-			_screen->clear();
-			snake.Draw(*_screen);
-			_screen->draw(food.GetRectangle());
+			_screen.clear();
+			snake.Draw(_screen);
+			_screen.draw(food.GetRectangle());
 
 			sf::Event event;
-			while (_screen->pollEvent(event))
+			while (_screen.pollEvent(event))
 			{
 				if (event.type == sf::Event::KeyReleased)
 				{
@@ -91,7 +91,7 @@ namespace Snake
 				}
 			}
 
-			if (snake.DoesSnakeCrossItself() || snake.DoesSnakeLeaveWindow(_screen->getSize().x, _screen->getSize().y))
+			if (snake.DoesSnakeCrossItself() || snake.DoesSnakeLeaveWindow(_screen.getSize().x, _screen.getSize().y))
 			{
 				break;
 			}
@@ -101,10 +101,10 @@ namespace Snake
 
 			if (snakeAte)
 			{
-				food = GetNextFood(*_screen, snake);
+				food = GetNextFood(_screen, snake);
 			}
 
-			_screen->display();
+			_screen.display();
 		}
 	}
 }
