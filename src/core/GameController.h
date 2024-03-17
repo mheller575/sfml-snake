@@ -28,7 +28,7 @@ namespace Snake
 	class GameController 
 	{
 	public:
-		GameController(sf::RenderWindow& window);
+		GameController(const std::int32_t& scaling, sf::RenderWindow& window);
 
 		void Run();
 

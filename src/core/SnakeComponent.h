@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <list>
 
 #include <SFML/Graphics.hpp>
@@ -36,7 +37,7 @@ namespace Snake
 	class SnakeComponent
 	{
 	public:
-		SnakeComponent(const int& startingX, const int& startingY, const Direction& startingDirection, const sf::Color& headColor, const sf::Color& bodyColor);
+		SnakeComponent(const std::int32_t& startingX, const std::int32_t& startingY, const Direction& startingDirection, const sf::Color& headColor, const sf::Color& bodyColor);
 
 		void Draw(sf::RenderWindow& window) const;
 
@@ -46,7 +47,7 @@ namespace Snake
 
 		bool DoesSnakeCrossItself() const;
 
-		bool DoesSnakeLeaveWindow(const int& x, const int& y);
+		bool DoesSnakeLeaveWindow(const std::int32_t& x, const std::int32_t& y);
 
 	private:
 		const sf::Color _headColor;

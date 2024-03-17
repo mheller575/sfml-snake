@@ -17,13 +17,14 @@
 *   along with sfml-snake.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <cstdint>
 #include <random>
 
 #include "RandomNumberGenerator.h"
 
 namespace Snake
 {
-	int GetRandomNumber(const int& min, const int& max)
+	int GetRandomNumber(const std::int32_t& min, const std::int32_t& max)
 	{
 		// TODO: Maybe this should be stack allocated? Have a static bool track if we were seeded already? Optional?
 		static std::shared_ptr<std::mt19937> generator;

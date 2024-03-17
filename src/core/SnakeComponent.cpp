@@ -22,7 +22,7 @@
 
 namespace Snake
 {
-	SnakeComponent::SnakeComponent(const int& startingX, const int& startingY, const Direction& startingDirection, const sf::Color& headColor, const sf::Color& bodyColor)
+	SnakeComponent::SnakeComponent(const std::int32_t& startingX, const std::int32_t& startingY, const Direction& startingDirection, const sf::Color& headColor, const sf::Color& bodyColor)
 		: _headColor(headColor)
 		, _bodyColor(bodyColor)
 	{
@@ -39,8 +39,8 @@ namespace Snake
 
 	void SnakeComponent::NextDirection(const Direction& nextDirection, const bool& increaseLength)
 	{
-		int x = _snake.front().getPosition().x;
-		int y = _snake.front().getPosition().y;
+		std::int32_t x = _snake.front().getPosition().x;
+		std::int32_t y = _snake.front().getPosition().y;
 
 		switch (nextDirection)
 		{
@@ -87,10 +87,10 @@ namespace Snake
 		return false;
 	}
 
-	bool SnakeComponent::DoesSnakeLeaveWindow(const int& maxX, const int& maxY)
+	bool SnakeComponent::DoesSnakeLeaveWindow(const std::int32_t& maxX, const std::int32_t& maxY)
 	{
-		int x = _snake.front().getGlobalBounds().left;
-		int y = _snake.front().getGlobalBounds().top;
+		const std::int32_t x = _snake.front().getGlobalBounds().left;
+		const std::int32_t y = _snake.front().getGlobalBounds().top;
 		return (x > maxX || x < 0) || (y > maxY || y < 0);
 	}
 }

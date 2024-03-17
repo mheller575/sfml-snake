@@ -96,7 +96,7 @@ namespace Snake
 				"New Game",
 				[&](sf::RenderTarget& target) 
 				{
-					GameController gameController(_window);
+					GameController gameController(5, _window);
 					gameController.Run();
 				}
 			},

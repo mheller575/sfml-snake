@@ -25,26 +25,12 @@
 
 namespace Snake
 {
-	GameController::GameController(sf::RenderWindow& window) 
-		: _screen(window)
-		, _scale(5)
-	{}
-   
-	Food GetNextFood(const sf::RenderWindow& window, const SnakeComponent& snake)
-	{
-		sf::Vector2f point;
-		while (true)
-		{
-			point = sf::Vector2f(GetRandomNumber(0, window.getSize().x - 4 * BoxSize), GetRandomNumber(0, window.getSize().y - 4 * BoxSize));
-			auto rect = BuildRectangleShape(point, sf::Color::Black);
-			if (!snake.OverlapsRectangle(rect)) 
-			{
-				break;
-			}
-		}
+	Food GetNextFood(const sf::RenderWindow& window, const SnakeComponent& snake);
 
-		return Food(point);
-	}
+	GameController::GameController(const std::int32_t& scaling, sf::RenderWindow& window) 
+		: _screen(window)
+		, _scale(scaling)
+	{}
 
 	void GameController::Run()
 	{
@@ -106,5 +92,21 @@ namespace Snake
 
 			_screen.display();
 		}
+	}
+
+	Food GetNextFood(const sf::RenderWindow& window, const SnakeComponent& snake)
+	{
+		sf::Vector2f point;
+		while (true)
+		{
+			point = sf::Vector2f(GetRandomNumber(0, window.getSize().x - 4 * BoxSize), GetRandomNumber(0, window.getSize().y - 4 * BoxSize));
+			auto rect = BuildRectangleShape(point, sf::Color::Black);
+			if (!snake.OverlapsRectangle(rect))
+			{
+				break;
+			}
+		}
+
+		return Food(point);
 	}
 }
