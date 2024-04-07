@@ -25,9 +25,7 @@ namespace Snake
 		: _screen(window)
 		, _initialDirection(initialDirection)
 		, _gameBoard(gameBoard)
-	{
-		_screen.setFramerateLimit(60);
-	}
+	{}
 
 	void GameController::Run()
 	{

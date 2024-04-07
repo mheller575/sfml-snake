@@ -27,13 +27,39 @@ namespace Snake
 	MainMenu::MainMenu(sf::RenderWindow& w)
 		: _window(w)
 		, _main_menu_context(nullptr, menu_destroy_context)
+		, _commonMenuStyle(game_menu::Style
+			{
+				.TitleFont = &_font,
+				.ItemFont = &_font,
+				.TitleFontSize = 36,
+				.ItemFontSize = 24,
+				.MenuTitleScaleFactor = 1,
+				.MenuItemScaleFactor = 1.5,
+				.colorScheme =
+				{
+					.titleColor = 0xFFFFFF,
+					.itemColor = 0xFFFFFF,
+					.selectedColor = 0xFF22F1
+				},
+				.PaddingTitle =
+				{
+					.top = 100,
+					.left = 0,
+				},
+				.PaddingItems =
+				{
+					.top = 40,
+				},
+				.TitleAlign = game_menu::Align::Center,
+				.ItemAlign = game_menu::Align::Center
+			})
 	{
-		SetupMenuContext();
+		StartMenuContext();
+		_window.setFramerateLimit(60);
 	}
 
 	void MainMenu::Start()
 	{
-		_window.setFramerateLimit(60);
 		while (_window.isOpen())
 		{
 			if (_is_exit_requested)
@@ -60,36 +86,9 @@ namespace Snake
 		}
 	}
 
-	void MainMenu::SetupMenuContext()
+	void MainMenu::StartMenuContext()
 	{
 		_font.loadFromFile("sansation.ttf");
-
-		game_menu::Style style
-		{ 
-			.TitleFont = &_font,
-			.ItemFont = &_font,
-			.TitleFontSize = 36,
-			.ItemFontSize = 24,
-			.MenuTitleScaleFactor = 1,
-			.MenuItemScaleFactor = 1.5,
-			.colorScheme = 
-			{
-				.titleColor = 0xFFFFFF,
-				.itemColor = 0xFFFFFF,
-				.selectedColor = 0xFF22F1
-			},
-			.PaddingTitle =
-			{
-				.top = 100,
-				.left = 0,
-			},
-			.PaddingItems =
-			{
-				.top = 40,
-			},
-			.TitleAlign = game_menu::Align::Center,
-			.ItemAlign = game_menu::Align::Center 
-		};
 
 		std::vector<game_menu::MenuItem> items
 		{
@@ -108,10 +107,12 @@ namespace Snake
 					
 					FoodComponent foodComponent(sf::Vector2f(GetRandomNumber(0, windowMaxX), GetRandomNumber(0, windowMaxY)));
 					SnakeComponent snakeComponent(snakeX, snakeY, Direction::Right, sf::Color::Green, sf::Color::Yellow);
-					GameBoard gameBoard(snakeComponent, foodComponent, 100000, windowMaxX, windowMaxY);
+					GameBoard gameBoard(snakeComponent, foodComponent, 50000, windowMaxX, windowMaxY);
 					GameController gameController(Direction::Right, gameBoard, _window);
 
 					gameController.Run();
+
+					return false;
 				}
 			},
 			{
@@ -135,7 +136,7 @@ namespace Snake
 		{
 			.title = "Snake", 
 			.items = items, 
-			.style = style 
+			.style = _commonMenuStyle
 		};
 
 		_main_menu_context.reset(create_menu_context(_window, config));

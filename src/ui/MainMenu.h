@@ -32,7 +32,9 @@ namespace Snake
 		void Start();
 
 	private:
-		void SetupMenuContext();
+		void StartMenuContext();
+
+		const game_menu::Style _commonMenuStyle;
 
 		sf::RenderWindow &_window;
 		sf::Font _font;
