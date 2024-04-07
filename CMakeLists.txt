@@ -19,7 +19,7 @@ FetchContent_MakeAvailable(SFML)
 
 FetchContent_Declare(gamemenu
     GIT_REPOSITORY https://github.com/mheller575/GameMenu-cpp.git
-    GIT_TAG 332fa07e15fa22ac895a21f2ca66ecd941cf972a
+    GIT_TAG eca33376a4c9197d4522aab5c5bec05864aa8b81
     GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(gamemenu)
 
@@ -27,13 +27,19 @@ set(SOURCE_FILES
 "src/main.cpp"
 "src/ui/MainMenu.cpp"
 "src/ui/MainMenu.h"
-"src/core/engine.h"
-"src/core/food.h"
-"src/core/food.cpp"
-"src/core/snake.h"
-"src/core/snake.cpp"
-"src/core/game.h"
-"src/core/game.cpp"
+"src/core/FoodComponent.cpp"
+"src/core/FoodComponent.h"
+"src/core/GameBoard.cpp"
+"src/core/GameBoard.h"
+"src/core/GameController.cpp"
+"src/core/GameController.h"
+"src/core/IComponent.h"
+"src/core/RandomNumberGenerator.cpp"
+"src/core/RandomNumberGenerator.h"
+"src/core/SnakeComponent.cpp"
+"src/core/SnakeComponent.h"
+"src/core/Utilities.cpp"
+"src/core/Utilities.h"
 )
 
 add_executable(snake ${SOURCE_FILES})
